@@ -1,0 +1,56 @@
+<h1>{{listeSuivis.name}}</h1>
+<!-- <div [style.opacity]="getListOpacity()" class="row content pb-4 container-fluid"> -->
+
+<div [style.opacity]="getListOpacity()" class="row content container-fluid">
+  <div *ngFor="let suivi of listeSuivis.suivis" class="col-12 col-lg-6 col-xxl-4">
+    <div class="card bg-dark text-white">
+      <img alt="image de {{ suivi.preview.titre }}"
+           [src]="printImageSrc(suivi.preview)">
+      <div class="card-body"
+           [class.serie]="isSerie(suivi.preview)"
+           [class.film]="!isSerie(suivi.preview)">
+        <h2> {{ suivi.preview.titre }} </h2>
+        <div class='container d-flex sousTitre'>
+          <p class='preview'
+            [class.col-8]="isSerie(suivi.preview)"
+            [class.col-10]="!isSerie(suivi.preview)">
+              {{getTypePreview(suivi.preview.typePreview)}}
+          </p>
+
+          <button (click)="updateSaisonSerie(suivi,listeSuivis.id)" *ngIf="isSerie(suivi.preview)"  class="action col-2"
+                  title="Rafraîchir les données des saisons"><span class="material-icons">system_update_alt</span>
+          </button>
+          
+          <button (click)="supprimer($event, suivi)" class="action col-2"
+            title="Supprimer">
+                      <span class="material-icons">
+                        delete_outline
+                    </span>
+          </button>
+        </div>
+        <!--       compsant du statut (affichage et mise à jour)
+        -->
+        <app-statut [suivi]="suivi"></app-statut>
+        <!--        affichage du score-->
+        <div class="score">
+          <rating [suivi]="suivi" [origine]="origineRating" ></rating>
+        </div>
+        <!--        saisons / épisodes et leur mise à jour pour les séries-->
+        <app-nb-series *ngIf="isSerie(suivi.preview)" [suivi]="suivi"></app-nb-series>
+
+                
+       
+
+        <p *ngIf="isSerie(suivi.preview)"><em>Résumé : </em> {{ suivi.preview.overview | cuttextlong }}</p>
+        <p *ngIf="!isSerie(suivi.preview)"><em>Résumé : </em> {{ suivi.preview.overview | cuttextverylong }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+

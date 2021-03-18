@@ -1,0 +1,26 @@
+ <!-- listes -->
+
+<!--      <span>-->
+<!--    <span class="material-icons">-->
+        <!--      mode-->
+        <!--    </span>-->
+<!--        {{utilisateur.firstname}}, voici vos listes</span>-->
+
+  <li *ngFor="let liste of listes" class="nav-item videoListName">
+
+    <a (click)="onClickList(liste.id)" [routerLink]="['/listesuivis',liste.id]" routerLinkActive="active"
+       [routerLinkActiveOptions]="{exact:
+        true}" class="nav-link videoListName" href=""><span class="material-icons">
+          list
+          </span> {{ liste.name }}</a>
+  </li>
+
+
+    <button (click)="addList()" class="primary"> Ajouter une liste</button>
+
+
+
+
+
+<!-- <a (click)="onClickList(liste.id)" [routerLink]="['/listesuivis',liste.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+  true}" class="list-group-item list-group-item-action" href="">{{ liste.name }} - {{liste.id}}</a> -->

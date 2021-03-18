@@ -1,0 +1,57 @@
+
+<h1>FILMS</h1>
+
+
+
+<input #inputElt (keyup)="searchMovies(inputElt.value)" placeholder="Rechercher..." type="text"
+   class="form-control sticky-top">
+<ul class="list-group">
+
+   <li [routerLink]="['/detail', result.id, 'results']" *ngFor="let result of results"
+      class="list-group-item results">
+      {{result.title}}
+   </li>
+
+</ul>
+
+
+<!-- LIST DES FILMS-->
+<div  *ngIf="movies.length>0" [style.opacity]="getListOpacity()" class="row content  container-fluid">
+
+  <!--on peut mettre le movieService en public et non private dans le construteur de component
+  dans le HTML, on met un pipe pour dire async
+  => on rappelle pas un appel dejà fait
+  => méthode avec private et susbcribe réexécute les appels quand on fait un back
+  -->
+  <!--   <div *ngFor="let movie of movieService.movies$ | async" class="col-6">-->
+
+  <div *ngFor="let movie of movies" class="col-12 col-lg-6 col-xxl-4">
+
+<!--    <div *ngFor="let movie of movies" class="col-6">-->
+
+      <div   class="card bg-dark text-white">  <!-- [routerLink]="['/detail', movie.id, 'movies']" -->
+         <img [routerLink]="['/detail', movie.id, 'movies']" [src]="printImageSrc(movie)">
+         <div class="card-body film">
+           <h2>{{ movie.title }}  </h2>
+           <app-ajouter-aune-liste [movie]="movie" *ngIf="userService.isLogged()" ></app-ajouter-aune-liste>
+
+            <rating [dbMovieScore]="movie.score/2" [origine]="origineRating"></rating>
+           <p>Date de sortie : {{ movie.date | date: "dd/MM/YYYY" }}</p>
+           <p><em>Résumé : </em>{{ movie.desc | cuttext }}</p>
+      </div>
+
+   </div>
+</div>
+
+<!-- LOADER-->
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center loader">
+   <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+   </div>
+</div>
+
+
+<!-- Navigation bottom bar -->
+<div class="fixed-bottom bg-info text-center p-2">
+   <button (click)="loadNextMovies()" class="btn btn-light">Films suivants</button>
+</div>

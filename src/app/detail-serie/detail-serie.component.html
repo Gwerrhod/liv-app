@@ -1,0 +1,35 @@
+
+
+<div class="bkg" [style.backgroundImage]="computeBackgroundStyle(serie.image)">
+  <div class="filter-image"></div>
+
+  <div class="d-flex btnTitre">
+    <button (click)="goToRootPage()" class="btn">
+      <i class="fas fa-arrow-left  iconeBack"> </i>
+    </button>
+    <h1 class="titreDetail">{{serie.title | uppercase}}</h1>
+  </div>
+
+  <div class="row movie-content">
+    <!-- BLOC VIDEO -->
+    <div *ngIf="urlYTSerie != null" class="col-12 col-md-6">
+      <div class="video-responsive">
+        <iframe  width="100%" height="auto" [src]="urlYTSerie"
+                 frameborder="1" allow="accelerometer;
+    autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                 allowfullscreen></iframe>
+      </div>
+
+    </div>
+    <!-- BLOC TEXT -->
+    <div  [class.col-md-6]="urlYTSerie != null" [class.col-md-12]="urlYTSerie == null" class="col-12">
+
+      <app-ajouter-aune-liste [serie]="serie" *ngIf="userService.isLogged()" ></app-ajouter-aune-liste>
+      <!-- <p>Date de sortie : {{movie.date.toISOString().slice(0,10)}}</p> -->
+      <p>Date de sortie : {{serie.date | date:'dd/MM/YYYY'}}</p>
+      <p class="lh-lg text-justify"><em>Résumé : </em>{{serie.desc}}</p>
+    </div>
+  </div>
+
+</div>
+

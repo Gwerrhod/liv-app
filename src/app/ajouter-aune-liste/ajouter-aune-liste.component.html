@@ -1,0 +1,22 @@
+
+
+<mat-form-field appearance="fill">
+  <mat-label >
+    <span class="material-icons">
+    add_box
+    </span>
+   Ajouter à ma liste
+  </mat-label>
+
+  <mat-select>
+  <!-- <select matNativeControl > -->
+    <mat-option *ngFor="let liste of listes"  >
+       <option *ngIf="movie" (click)="ajoutSuiviFilm(liste.id, liste.name)"  >  {{liste.name}} </option>
+       <option *ngIf="serie" (click)="ajoutSuiviSerie(liste.id, liste.name)" > {{liste.name}} </option>
+    </mat-option>
+  <!-- </select> -->
+  </mat-select>
+</mat-form-field>
+
+
+

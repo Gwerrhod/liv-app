@@ -1,0 +1,62 @@
+<mat-toolbar class="d-flex justify-content-between" color="primary">
+  <h1>LOST IN VIEW</h1>
+  <div>
+    <span *ngIf="!userService.isLogged()" class="me-2" [style.cursor]="'pointer'" routerLink="/login">
+      <span class="material-icons">
+        login
+      </span>
+      Login
+    </span>
+    <span *ngIf="userService.isLogged()" class="ms-2 ">Hello {{utilisateur.firstname | titlecase}} 😎 </span>
+    <span *ngIf="userService.isLogged()" class="ms-2 " [style.cursor]="'pointer'" (click)="logoutAction()">
+      <span class="material-icons">
+        logout
+      </span>
+      Logout
+    </span>
+  </div>
+</mat-toolbar>
+<mat-progress-bar color="accent" [style.opacity]="(loaderService.isLoadingObs | async)?'1':'0'" mode="indeterminate">
+</mat-progress-bar>
+
+<div class="d-flex  ">
+
+<!--  <div class="container-fluid h-100">-->
+  <!-- side bar -->
+    <div class="sidebar ">
+      <nav class="sidebarNav">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+              <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+              true}" class="nav-link " href=""><i class="fas fa-home"></i> home</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/films" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+            true}" class="nav-link" href=""> <i class="fas fa-film"></i> Catalogue films</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/series" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+            true}" class="nav-link" href=""> <i class="fas fa-tv"></i> Catalogue series</a>
+          </li>
+<!--          <li class="nav-item">-->
+
+          <app-listesnavbar *ngIf="userService.isLogged()"  [style.cursor]="'pointer'"></app-listesnavbar>
+
+<!--          </li>-->
+        </ul>
+      </nav>
+
+    </div>
+
+
+  <div class="container-fluid">
+
+    <!--COMPONENT <app-list></app-list> -->
+    <!-- <app-list></app-list> -->
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
+
+
+
